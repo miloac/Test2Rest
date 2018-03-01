@@ -1,15 +1,14 @@
 var OrdersControllerModule = (function () {
 
-  var showOrdersByTable = function (orders) {
-    //alert('show orders by table called!');
-    //Todo implement this method and delete line above
+  var showOrdersByTable = function () {
+    //Todo implement
   };
 
-  var updateOrder = function (order) {
+  var updateOrder = function () {
     // todo implement
   };
 
-  var deleteOrderItem = function (itemId) {
+  var deleteOrderItem = function (itemName) {
     // todo implement
   };
 
