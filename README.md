@@ -6,22 +6,49 @@
 
 Understand the module pattern for JavaScript and make a refactoring of your code to have two layer modules (FrontEnd and Network):
 
-- Network Layer -> Implement the methods of the *RestaurantRestController.js*
-    - getOrders
-    - updateOrder
-    - deleteOrder
-    - createOrder
+- Network Layer -> Implement the method *getOrders* of the *RestaurantRestController.js* using the [axios library](https://github.com/axios/axios) to make the HTTP calls to the REST API.
+ 
     
-- FrontEnd Layer -> Implement the methods of the *OrdersController.js*
-    - showOrdersByTable
-    - updateOrder
-    - deleteOrderItem
-    - addItemToOrder    
-
-
+- FrontEnd Layer -> Implement the method *showOrdersByTable* of the *OrdersController.js*
+    
+  
 Reference: https://toddmotto.com/mastering-the-module-pattern/
 
 
-# Part 2: Modify the index.html page so it displays the following orders structure:
+# Part 2: FrontEnd implementation - Orders
+
+Modify the *index.html* page so it displays the following orders structure:
 
 ![](img/orders.png)
+
+- Add the *OrdersController.js* and *RestaurantRestController.js* to the *index.html*
+- Connect the modules with your HTML code:
+    - Call the *getOrders* method of the RestaurantRestController module (You can add a log so you can verify that it actually retrieves the data from the server)
+    - Connect the two modules by calling the  *OrdersController.js* -> *showOrdersByTable* method from the *RestaurantRestController.js* once the request promise is completed.
+
+
+# Part 2: Orders CRUD
+
+Create a new html page that has the following structure:
+
+![](img/update-orders.png)
+
+
+Implement the CRUD methods of the *RestaurantRestController.js* using the [axios library](https://github.com/axios/axios) to make the HTTP calls to the REST API.
+
+    - updateOrder
+    - deleteOrder
+    
+    
+Implement the remaining methods of the *OrdersController.js*
+
+    - addItemToOrder
+    - updateOrder
+    - deleteOrderItem
+    
+Connect your html components with your controllers:
+
+   - Implement a listener for the comboBox so when you change the order then the Update Orders table changes with the corresponding items.
+   - Call the function *addItemToOrder* when the Add button is clicked (make sure you validate the submitted data)
+   - Call the function *updateOrder* when the Update button is clicked (make sure you validate the submitted data)
+   - Call the function *deleteOrderItem* when the Delete button is clicked
