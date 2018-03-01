@@ -25,6 +25,7 @@ Modify the *index.html* page so it displays the following orders structure:
 - Connect the modules with your HTML code:
     - Call the *getOrders* method of the RestaurantRestController module (You can add a log so you can verify that it actually retrieves the data from the server)
     - Connect the two modules by calling the  *OrdersController.js* -> *showOrdersByTable* method from the *RestaurantRestController.js* once the request promise is completed.
+- Call the *getOrders* function on the [onload](https://www.w3schools.com/tags/ev_onload.asp) event so the orders load once tha page is loaded.
 
 
 # Part 2: Orders CRUD
@@ -46,9 +47,11 @@ Implement the remaining methods of the *OrdersController.js*
     - updateOrder
     - deleteOrderItem
     
+- Call the *getOrders* function on the [onload](https://www.w3schools.com/tags/ev_onload.asp) and store it on global variable    
+    
 Connect your html components with your controllers:
 
-   - Implement a listener for the comboBox so when you change the order then the Update Orders table changes with the corresponding items.
+   - Implement a listener for the comboBox so when you change the order then the Update Orders table changes with the corresponding items (user the orders global variable).
    - Call the function *addItemToOrder* when the Add button is clicked (make sure you validate the submitted data)
    - Call the function *updateOrder* when the Update button is clicked (make sure you validate the submitted data)
    - Call the function *deleteOrderItem* when the Delete button is clicked
