@@ -21,8 +21,8 @@ var OrdersControllerModule = (function () {
 
 
         var table = document.createElement("TABLE");
-        table.border = "1";
-        table.setAttribute("id","Table"+idmesa);
+        table.id = "Table" + idmesa;
+        table.className = "table table-dark table-bordered";
 
         var columnCount = 2;
 
