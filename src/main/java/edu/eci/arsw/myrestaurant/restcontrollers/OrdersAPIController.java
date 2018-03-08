@@ -99,8 +99,13 @@ public class OrdersAPIController {
             rOS.addNewOrderToTable(o);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (OrderServicesException e) {
-            Logger.getLogger(OrdersAPIController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>("Table doesn't exist or doesn't have an order associate", HttpStatus.NOT_FOUND);
+            try {
+                rOS.addNewOrderToTable(o);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            } catch (OrderServicesException e1) {
+                Logger.getLogger(OrdersAPIController.class.getName()).log(Level.SEVERE, null, e);
+                return new ResponseEntity<>("Table doesn't exist or doesn't have an order associate", HttpStatus.NOT_FOUND);
+            }
         }
     }
 
