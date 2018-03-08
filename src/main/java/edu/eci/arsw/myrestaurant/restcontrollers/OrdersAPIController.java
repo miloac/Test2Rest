@@ -91,8 +91,8 @@ public class OrdersAPIController {
         }
     }
 
-    @RequestMapping(value = "/{idmesa}", method = RequestMethod.PUT)
-    public ResponseEntity<?> manejadorPutRecursoOrder(@RequestBody Order o, @PathVariable Integer idmesa) {
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<?> manejadorPutRecursoOrder(@RequestBody Order o) {
         //registrar dato
         try {
             rOS.releaseTable(o.getTableNumber());
