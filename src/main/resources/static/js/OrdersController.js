@@ -118,7 +118,8 @@ var OrdersControllerModule = (function () {
     };
 
     var deleteOrderItem = function (itemName) {
-        // todo implement
+        document.getElementById(itemName).remove();
+        updateOrder();
     };
 
     var addItemToOrder = function (orderId, item) {
