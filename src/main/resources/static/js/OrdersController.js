@@ -1,17 +1,40 @@
+var orders;
 var OrdersControllerModule = (function () {
     var showOrdersByTable = function () {
-        RestControllerModule.getOrders({
-            onSuccess: function (orderList) {
-                orders = orderList;
-                for (var item in orderList) {
-                    var prodList = orderList[item];
+        var callback = {
+            onSuccess: function () {
+                for (var item in orders) {
+                    var prodList = orders[item];
                     _addNewOrder(item, prodList);
                 }
             },
+            onFsiled: function () {
+            }
+        };
+        _getOrders(callback);
+    };
+
+    var _getOrders = function (callback) {
+        RestControllerModule.getOrders({
+            onSuccess: function (orderList) {
+                orders = orderList;
+                callback.onSuccess();
+            },
             onFailed: function (error) {
+                console.log(error);
                 window.alert("There is a problem with our servers. We apologize for the inconvince, please try again later");
             }
         });
+
+    };
+
+    var _noOpCallback = function () {
+        return {
+            onSuccess: function () {
+            }, onFailed: function () {
+
+            }
+        }
     };
 
     var _addNewOrder = function (idmesa, orden) {
@@ -67,7 +90,7 @@ var OrdersControllerModule = (function () {
     };
 
     var _constructProductsActiveOrder = function () {
-        var p = document.getElementById("products");
+        var p = document.getElementById("Products");
         p = p.children;
         var str = '{\"orderAmountsMap\":{';
         for (var i = 0; i < p.length; i++) {
@@ -86,12 +109,7 @@ var OrdersControllerModule = (function () {
             {
                 onSuccess: function (response) {
                     window.alert("Order has been updated");
-                    RestControllerModule.getOrders({
-                        onSuccess: function (orderList) {
-                            orders = orderList;
-                        }, onFailed: function (error) {
-                        }
-                    })
+                    _getOrders(_noOpCallback());
                 },
                 onFailed: function (error) {
                     console.log(error);
@@ -107,10 +125,98 @@ var OrdersControllerModule = (function () {
         // todo implement
     };
 
+    var updateView = function () {
+        var callback = {
+            onSuccess: function () {
+                _populateUpdateView();
+            },
+            onFailed: function () {
+
+            }
+        };
+        _getOrders(callback);
+    };
+
+    var _populateUpdateView = function () {
+        var select = document.getElementById("TableSel");
+        for (var i in orders) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerText = "Table " + i;
+            select.appendChild(opt);
+        }
+        changeOrderUpdate(select.value);
+    };
+
+    var changeOrderUpdate = function (tableNumber) {
+        _deleteUpdateViewTable();
+        var productsRow = document.getElementById("Products");
+        for (var i in orders[tableNumber]["orderAmountsMap"]) {
+            var row = document.createElement("div");
+            row.className = "row mb-1";
+            row.id = i;
+
+            var col = document.createElement("div");
+            col.className = "col-md-3";
+            var inputProd = document.createElement("input");
+            inputProd.type = "text";
+            inputProd.className = "form-control";
+            inputProd.value = i;
+
+            col.appendChild(inputProd);
+            row.appendChild(col);
+
+            col = document.createElement("div");
+            col.className = "col-md-3";
+            var inputQuant = document.createElement("input");
+            inputQuant.type = "text";
+            inputQuant.className = "form-control";
+            inputQuant.value = orders[tableNumber]["orderAmountsMap"][i];
+
+            col.appendChild(inputQuant);
+            row.appendChild(col);
+
+            col = document.createElement("div");
+            col.className = "col-md-1";
+            var buttonUpdate = document.createElement("button");
+            buttonUpdate.onclick = function (ev) {
+                OrdersControllerModule.updateOrder()
+            };
+            buttonUpdate.className = "btn btn-primary";
+            buttonUpdate.innerText = "Update";
+
+            col.appendChild(buttonUpdate);
+            row.appendChild(col);
+
+            col = document.createElement("div");
+            col.className = "col-md-1";
+            var buttonDelete = document.createElement("button");
+            buttonDelete.className = "btn btn-danger";
+            buttonDelete.innerText = "Delete";
+            buttonDelete.id = "buttonDelete" + i;
+            buttonDelete.onclick = function (ev) {
+                OrdersControllerModule.deleteOrderItem(ev.path[2].id);
+            };
+            col.appendChild(buttonDelete);
+            row.appendChild(col);
+            productsRow.appendChild(row);
+        }
+    };
+
+    var _deleteUpdateViewTable = function () {
+        var productsRow = document.getElementById("Products");
+        while (productsRow.firstChild) {
+            productsRow.removeChild(productsRow.firstChild);
+        }
+    };
+
     return {
         showOrdersByTable: showOrdersByTable,
         updateOrder: updateOrder,
         deleteOrderItem: deleteOrderItem,
-        addItemToOrder: addItemToOrder
+        addItemToOrder: addItemToOrder,
+        updateView: updateView,
+        changeOrderUpdate: changeOrderUpdate
     };
-})();
+})
+();

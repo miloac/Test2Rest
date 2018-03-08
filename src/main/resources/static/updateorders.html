@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/4.0/examples/cover/ -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -16,7 +18,7 @@
     <link href="./index_files/cover.css" rel="stylesheet">
 </head>
 
-<body class="text-center" onload="">
+<body class="text-center" onload="OrdersControllerModule.updateView()">
 
 <div class="container d-flex h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
@@ -33,9 +35,8 @@
     <main role="main" class="inner cover">
         <div class="row">
             <div class="col-md-3 order-1">
-                <select id="TableSel" class="custom-select">
-                    <option value="2">Table2</option>
-                </select>
+                <select id="TableSel" class="custom-select"
+                        onchange="OrdersControllerModule.changeOrderUpdate(this.value)"></select>
             </div>
             <div class="col-md-3 order-2 w-100">
             </div>
@@ -44,7 +45,7 @@
                 <input type="text" class="col mb-3 form-control" placeholder="Quantity">
             </div>
             <div class="col-md-3 order-4 align-self-center">
-                <button type="submit" class="col btn btn-success" >Add</button>
+                <button type="submit" class="col btn btn-success">Add</button>
             </div>
         </div>
         <br>
@@ -53,43 +54,15 @@
             <h4 class="masthead col-md-3">Product</h4>
             <h4 class="masthead col-md-3">Quantity</h4>
             <div class="w-100"></div>
-            <div id="products" class="col-md-12">
-                <div class="row mb-1">
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="Pizza">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="3">
-                    </div>
-                    <div class="col-md-1">
-                        <button onclick="OrdersControllerModule.updateOrder()" class="btn btn-primary" >Update</button>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-danger" >Delete</button>
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="Coke">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" value="2">
-                    </div>
-                    <div class="col-md-1">
-                        <button onclick="OrdersControllerModule.updateOrder()" class="btn btn-primary" >Update</button>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-danger" >Delete</button>
-                    </div>
-                </div>
-            </div>
+            <div id="Products" class="col-md-12"></div>
         </div>
 
     </main>
 
     <footer class="mastfoot mt-auto">
         <div class="inner">
-            <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a
+                    href="https://twitter.com/mdo">@mdo</a>.</p>
         </div>
     </footer>
 </div>
@@ -98,7 +71,9 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="./index_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="./index_files/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="./index_files/popper.min.js"></script>
 <script src="./index_files/bootstrap.min.js"></script>
@@ -106,4 +81,5 @@
 <script src="./js/RestaurantRestController.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-</body></html>
+</body>
+</html>
