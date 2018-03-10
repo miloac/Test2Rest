@@ -122,8 +122,17 @@ var OrdersControllerModule = (function () {
         updateOrder();
     };
 
-    var addItemToOrder = function (orderId, item) {
-        // todo implement
+    var addItemToOrder = function (orderId, item){
+        orders[orderId]["orderAmountsMap"].appendChild(item);
+        updateOrder();
+
+    };
+
+    var newItemConstructor = function (){
+        var nombre = document.getElementById(newName);
+        var cantidad = document.getElementById(newQuant);
+        var newItem = {nombre: cantidad};
+        addItemToOrder(document.getElementById("TableSel").valueOf(), newItem);
     };
 
     var updateView = function () {
